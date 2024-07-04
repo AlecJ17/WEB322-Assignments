@@ -52,9 +52,13 @@ app.get("/lego/sets", async (req, res) => {
 // Route to display details for a specific set
 app.get("/lego/sets/:setNum", async (req, res) => {
   try {
-    let set = await legoData.getSetByNum(req.params.num);
-    res.render("set", { set: set }); // Render 'set.ejs' passing it the set data
-  }catch (err) {
+    const set = await legoData.getSetByNum(req.params.setNum);
+    if (set) {
+      res.render("set", { set: set });
+    } else {
+      throw new Error("Set not found.");
+    }
+  } catch (err) {
     res.status(404).render("404", { message: err });
   }
 });
