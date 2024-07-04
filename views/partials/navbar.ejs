@@ -1,0 +1,112 @@
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <!-- Home Link -->
+    <a class="btn btn-ghost normal-case text-xl" href="/">Lego Collection</a>
+  </div>
+
+  <!-- Navbar links for large screens -->
+  <div class="navbar-center hidden sm:flex">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/" class="<%= page === '/' ? 'active' : '' %>">Home</a></li>
+      <li>
+        <a href="/about" class="<%= page === '/about' ? 'active' : '' %>"
+          >About</a
+        >
+      </li>
+      <li>
+        <a
+          href="/lego/sets"
+          class="<%= page === '/lego/sets' ? 'active' : '' %>"
+          >Sets</a
+        >
+      </li>
+      <li>
+        <details>
+          <summary>Themes</summary>
+          <ul class="menu p-2 bg-base-100">
+            <li>
+              <a
+                href="/lego/sets?theme=technic"
+                class="<%= page.includes('technic') ? 'active' : '' %>"
+                >Technic</a
+              >
+            </li>
+            <li>
+              <a
+                href="/lego/sets?theme=classic%20town"
+                class="<%= page.includes('classic town') ? 'active' : '' %>"
+                >Classic Town</a
+              >
+            </li>
+            <li>
+              <a
+                href="/lego/sets?theme=supplemental"
+                class="<%= page.includes('supplemental') ? 'active' : '' %>"
+                >Supplemental</a
+              >
+            </li>
+          </ul>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Responsive Dropdown Menu -->
+  <div class="dropdown sm:hidden">
+    <label tabindex="0" class="btn btn-ghost">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16m-7 6h7"
+        />
+      </svg>
+    </label>
+    <ul
+      tabindex="0"
+      class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+    >
+      <li><a href="/" class="<%= page === '/' ? 'active' : '' %>">Home</a></li>
+      <li>
+        <a href="/about" class="<%= page === '/about' ? 'active' : '' %>"
+          >About</a
+        >
+      </li>
+      <li>
+        <a
+          href="/lego/sets"
+          class="<%= page === '/lego/sets' ? 'active' : '' %>"
+          >Sets</a
+        >
+      </li>
+      <li>
+        <a
+          href="/lego/sets?theme=technic"
+          class="<%= page.includes('technic') ? 'active' : '' %>"
+          >Technic</a
+        >
+      </li>
+      <li>
+        <a
+          href="/lego/sets?theme=classic%20town"
+          class="<%= page.includes('classic town') ? 'active' : '' %>"
+          >Classic Town</a
+        >
+      </li>
+      <li>
+        <a
+          href="/lego/sets?theme=supplemental"
+          class="<%= page.includes('supplemental') ? 'active' : '' %>"
+          >Supplemental</a
+        >
+      </li>
+    </ul>
+  </div>
+</div>
