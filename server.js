@@ -21,7 +21,7 @@ const HTTP_PORT = process.env.PORT || 8080; // Use the environment variable or d
 
 app.set("view engine", "ejs"); // Set EJS as the view engine
 app.set("views", path.join(__dirname, "views")); // Specify the directory for EJS templates
-app.use(express.static("public")); // Serve static files from the 'public' directory
+app.use(express.static('public')); // Serve static files from the 'public' directory
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 
 // Home route
