@@ -19,9 +19,9 @@ const legoData = require("./modules/legoSets");
 
 const HTTP_PORT = process.env.PORT || 8080; // Use the environment variable or default to 8080
 
+app.use(express.static('public')); // Serve static files from the 'public' directory
 app.set("view engine", "ejs"); // Set EJS as the view engine
 app.set("views", path.join(__dirname, "views")); // Specify the directory for EJS templates
-app.use(express.static('public')); // Serve static files from the 'public' directory
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded bodies
 
 // Home route
@@ -36,37 +36,31 @@ app.get("/about", (req, res) => {
 
 // Route to display all sets or filter by theme
 app.get("/lego/sets", async (req, res) => {
+  let sets = [];
   try {
-    const { theme } = req.query; // Retrieve the theme from query parameters
-    const sets = theme
-      ? await legoData.getSetsByTheme(theme)
-      : await legoData.getAllSets();
+    if (req.query.theme) {
+      sets = await legoData.getSetsByTheme(req.query.theme);
+    } else {
+      sets = await legoData.getAllSets();
+    }
     res.render("sets", { sets: sets }); // Render 'sets.ejs' passing it the sets data
-  } catch (error) {
-    console.error("Failed to retrieve sets:", error);
-    res.status(404).render("404", { message: "Error retrieving Lego sets." });
+  }catch (err){
+    res.status(404).render("404",{message: err});
   }
 });
 
 // Route to display details for a specific set
 app.get("/lego/sets/:setNum", async (req, res) => {
   try {
-    const set = await legoData.getSetByNum(req.params.setNum);
-    if (set) {
-      res.render("set", { set: set }); // Render 'set.ejs' passing it the specific set data
-    } else {
-      throw new Error("Set not found."); // Throw an error if no set was found
-    }
-  } catch (error) {
-    console.error("Failed to retrieve set details:", error);
-    res
-      .status(404)
-      .render("404", { message: "Unable to find the requested Lego set." });
+    let set = await legoData.getSetByNum(req.params.num);
+    res.render("set", { set: set }); // Render 'set.ejs' passing it the set data
+  }catch (err) {
+    res.status(404).render("404", { message: err });
   }
 });
 
 // 404 catch-all handler
-app.use((req, res) => {
+app.use((req, res, next) => {
   res.status(404).render("404", { message: "Page not found." });
 });
 
